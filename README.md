@@ -3,7 +3,7 @@ I built my portfolio in react and an api to laravel. I wanted to use this as a w
 
 To be honest, i was frustrated and just wanted to work on something
 
-# Things i am hoping to work on?
+## Things i am hoping to work on?
 1. Blog
 2. Design Ecommerce
 3. Drag and Drop Features
