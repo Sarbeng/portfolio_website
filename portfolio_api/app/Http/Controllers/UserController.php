@@ -28,4 +28,24 @@ class UserController extends Controller
 
              return response($response, 201);
     }
+
+    // show user
+    public function show () {
+        
+    }
+
+    // create user
+    public function create () {
+
+    }
+
+    // updating the user
+    public function update () {
+
+    }
+
+    // delete
+    public function delete () {
+
+    }
 }
