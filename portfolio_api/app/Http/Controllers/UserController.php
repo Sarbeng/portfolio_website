@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+
 class UserController extends Controller
 {
     //
@@ -35,7 +36,44 @@ class UserController extends Controller
     }
 
     // create user
-    public function create () {
+    public function create (Request $request) {
+
+        //validating the form fields
+        $fields = $request->validate([
+            'firstname' => 'required|string',
+            'lastname' => 'required|string',
+            'middlename' => 'string',
+            'phone' => 'string',
+            'username' => 'unique:users|string',
+            'email' => 'required|unique:users|email|confirmed',
+            'password' => 'required|password|min:8|confirmed'
+            
+
+        ]);
+
+        // storing or creating user data
+        $user = User::create([
+            'username' => $fields['username'],
+            'firstname' => $fields['firstname'],
+            'lastname' => $fields['lastname'],
+            'middlename' => $fields['middlename'],
+            'phone' => $fields['phone'],
+            'email' => $fields['email'],
+            'password' => bcrypt($fields['password'])
+        ]);
+
+        // creating user token for authentication
+        $token = $user->createToken('myapptoken')->plainTextToken;
+
+        //assigning response
+        $response = [
+            'user' => $user,
+            'message'=>'user account created',
+            'token' => $token
+        ];
+        //returning response
+        return response ($response,201);
+
 
     }
 

@@ -21,6 +21,8 @@ use App\Http\Controllers\UserController;
 //     return $request->user();
 // });
 
+Route::post('register',[UserController::class,'create']);
+
 Route::middleware('auth:sanctum')->group(function () {
     Route::resource('blog', BlogController::class);
 });
