@@ -123,7 +123,7 @@ class UserController extends Controller
     // logout
     public function logout () {
         // to logout destroy the token of the current logged in user.
-        $logged_out = Auth::user()->tokens()->get();
+        $logged_out = $this->guard()->user();
 
         return $logged_out;
     }

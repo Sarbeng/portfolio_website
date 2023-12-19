@@ -40,6 +40,23 @@ Route::middleware('auth:sanctum')->group(function () {
 //     Route::resource('blog', BlogController::class);
 // });
 
+
+// auth controllers
+Route::group([
+
+    'middleware' => 'api',
+    'namespace' => 'App\Http\Controllers',
+    'prefix' => 'auth'
+
+], function ($router) {
+
+    Route::post('login', 'AuthController@login');
+    Route::post('logout', 'AuthController@logout');
+    Route::post('refresh', 'AuthController@refresh');
+    Route::post('me', 'AuthController@me');
+
+});
+
 //login into application
 Route::post("login",[UserController::class,'index']);
 
