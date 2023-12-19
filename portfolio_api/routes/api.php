@@ -21,16 +21,26 @@ use App\Http\Controllers\UserController;
 //     return $request->user();
 // });
 
+//Register a user into the application
 Route::post('register',[UserController::class,'create']);
 
+// this is where we handle all our crud applications
 Route::middleware('auth:sanctum')->group(function () {
     Route::resource('blog', BlogController::class);
+
+    // get user data
+    Route::get('user_data',[UserController::class,'show']);
+    //updating user data
+    Route::post('update_user_data',[UserController::class,'update']);
+    //logging out of application
+    Route::get('logout',[UserController::class,'logout']);
 });
 
 // Route::group(['middleware' => 'auth:sanctum'], function () {
 //     Route::resource('blog', BlogController::class);
 // });
 
+//login into application
 Route::post("login",[UserController::class,'index']);
 
 
