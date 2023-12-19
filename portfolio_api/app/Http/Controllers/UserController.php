@@ -41,12 +41,12 @@ class UserController extends Controller
         //validating the form fields
         $fields = $request->validate([
             'firstname' => 'required|string',
-            'lastname' => 'required|string',
-            'middlename' => 'string',
-            'phone' => 'string',
+            'surname' => 'required|string',
+            'middlename' => 'nullable|string',
+            'phone' => 'nullable|string',
             'username' => 'unique:users|string',
             'email' => 'required|unique:users|email|confirmed',
-            'password' => 'required|password|min:8|confirmed'
+            'password' => 'required|string|min:8|confirmed'
             
 
         ]);
@@ -55,7 +55,7 @@ class UserController extends Controller
         $user = User::create([
             'username' => $fields['username'],
             'firstname' => $fields['firstname'],
-            'lastname' => $fields['lastname'],
+            'surname' => $fields['surname'],
             'middlename' => $fields['middlename'],
             'phone' => $fields['phone'],
             'email' => $fields['email'],
