@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class PhotoshopFiles extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'file_name',
+        'description',
+        'file_location',
+        'youtube_id'
+    ];
 }
