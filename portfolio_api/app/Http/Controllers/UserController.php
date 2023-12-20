@@ -96,7 +96,8 @@ class UserController extends Controller
 
 
         // the token must also be detroyed
-        $this->guard()->logout();
+        //$this->guard()->logout();
+        Auth::guard()->logout();
 
         // assigning response
         $response = [
@@ -107,29 +108,5 @@ class UserController extends Controller
         return response($response,200);
     }
 
-    /**
-     * Get the token array structure.
-     *
-     * @param  string $token
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    protected function respondWithToken($token)
-    {
-        return response()->json([
-            'access_token' => $token,
-            'token_type' => 'bearer',
-            'expires_in' => $this->guard()->factory()->getTTL() * 60
-        ]);
-    }
 
-    /**
-     * Get the guard to be used during authentication.
-     *
-     * @return \Illuminate\Contracts\Auth\Guard
-     */
-    public function guard()
-    {
-        return Auth::guard();
-    }
 }
