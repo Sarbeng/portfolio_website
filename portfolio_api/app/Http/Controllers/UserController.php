@@ -9,36 +9,7 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
-    //
-
-    function index(Request $request)
-    {
-        $user= User::where('email', $request->email)->first();
-        // print_r($data);
-            if (!$user || !Hash::check($request->password, $user->password)) {
-                return response([
-                    'message' => ['These credentials do not match our records.']
-                ], 404);
-            }
-
-             $token = $user->createToken('my-app-token')->plainTextToken;
-
-            $response = [
-                'user' => $user,
-                'token' => $token
-            ];
-
-             return response($response, 201);
-    }
-
-    // showing current logged in user details from database
-    public function show () {
-
-        // getting user data from auth
-        $user = Auth::user();
-
-        return $user;        
-    }
+    
 
     // create user
     public function create (Request $request) {
@@ -67,14 +38,11 @@ class UserController extends Controller
             'password' => bcrypt($fields['password'])
         ]);
 
-        // creating user token for authentication
-        $token = $user->createToken('myapptoken')->plainTextToken;
-
+        
         //assigning response
         $response = [
             'user' => $user,
             'message'=>'user account created',
-            'token' => $token
         ];
         //returning response
         return response ($response,201);
@@ -102,7 +70,7 @@ class UserController extends Controller
         } catch (Exception $error) {
 
             $response = [
-                'message' => 'User records updated',
+                'message' => 'User records not updated',
                 'error' => $error->getMessage()
             ];
 
@@ -116,15 +84,52 @@ class UserController extends Controller
     // delete
     public function delete () {
 
-        // delete the current user using the id
+        /**
+         * delete the current user using the id
+         *  */ 
+
+        // get the id of the current user
+        $user_id = Auth::user()->id;
+
+        $find_user = User::find($user_id);
+        $delete_user = $find_user->delete();
+
+
         // the token must also be detroyed
+        $this->guard()->logout();
+
+        // assigning response
+        $response = [
+            'message' => "user successfully deleted",
+            'deleted_user' => $delete_user
+        ];
+
+        return response($response,200);
     }
 
-    // logout
-    public function logout () {
-        // to logout destroy the token of the current logged in user.
-        $logged_out = $this->guard()->user();
+    /**
+     * Get the token array structure.
+     *
+     * @param  string $token
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    protected function respondWithToken($token)
+    {
+        return response()->json([
+            'access_token' => $token,
+            'token_type' => 'bearer',
+            'expires_in' => $this->guard()->factory()->getTTL() * 60
+        ]);
+    }
 
-        return $logged_out;
+    /**
+     * Get the guard to be used during authentication.
+     *
+     * @return \Illuminate\Contracts\Auth\Guard
+     */
+    public function guard()
+    {
+        return Auth::guard();
     }
 }

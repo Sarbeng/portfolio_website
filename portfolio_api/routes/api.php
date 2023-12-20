@@ -28,12 +28,7 @@ Route::post('register',[UserController::class,'create']);
 Route::middleware('auth:sanctum')->group(function () {
     Route::resource('blog', BlogController::class);
 
-    // get user data
-    Route::get('user_data',[UserController::class,'show']);
-    //updating user data
-    Route::post('update_user_data',[UserController::class,'update']);
-    //logging out of application
-    Route::get('logout',[UserController::class,'logout']);
+   
 });
 
 // Route::group(['middleware' => 'auth:sanctum'], function () {
@@ -41,7 +36,7 @@ Route::middleware('auth:sanctum')->group(function () {
 // });
 
 
-// auth controllers
+// authentication routes
 Route::group([
 
     'middleware' => 'api',
@@ -55,9 +50,15 @@ Route::group([
     Route::post('refresh', 'AuthController@refresh');
     Route::post('me', 'AuthController@me');
 
-});
 
-//login into application
-Route::post("login",[UserController::class,'index']);
+     // get user data
+     Route::get('user_data',[UserController::class,'show']);
+     //updating user data
+     Route::post('update_user_data',[UserController::class,'update']);
+     Route::get('delete_user',[UserController::class,'delete']);
+     //logging out of application
+    // Route::get('logout',[UserController::class,'logout']);
+
+});
 
 
