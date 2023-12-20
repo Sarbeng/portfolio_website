@@ -62,3 +62,10 @@ Route::group([
 });
 
 
+Route::group(['middleware' => ['api'],'namespace' => 'App\Http\Controllers', 'prefix' => 'posts'], function($router) {
+    Route::get('/all', 'PostController@index');
+    Route::post('/create-post', 'PostController@store');
+    Route::put('/update_post/{post_id}','PostController@update');
+    // ... more routes
+});
+
