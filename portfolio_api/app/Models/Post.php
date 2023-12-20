@@ -13,5 +13,5 @@ class Post extends Model
         'title',
         'description',
         'image_location'
-    ]
+    ];
 }
