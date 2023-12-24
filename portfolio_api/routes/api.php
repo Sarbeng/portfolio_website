@@ -71,6 +71,6 @@ Route::group(['middleware' => ['api'],'namespace' => 'App\Http\Controllers', 'pr
     Route::post('/update_post/{post_id}','PostController@update');
     // 
     Route::delete('/delete_posts/{id}','PostController@destroy');
-    Route::get('/individual_posts','PostController@individual_posts')
+    Route::get('/individual_posts','PostController@individual_posts');
 });
 
