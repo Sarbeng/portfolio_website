@@ -56,20 +56,17 @@ class PostController extends Controller
      // updating posts
      public function update (Request $request,$post_id) {
 
-        // utilizing a try catch so i can handle any errors that do occur
-        $post = Post::find($post_id);
+       
+        //validating fields
+       $fields = $request->validate([
+        'title' =>'required|string',
+        'description' =>'required|string'
+       ]);
 
-       // $update_post = Post::where('id','=',$post->id)->update($request->all());
+       // gettin gpost id
+       $post = Post::find($post_id);
 
-        //
-        // $post->title = $request->input('title');
-        // $post->description = $request->input('description');
-        // $post->image_location = $request->input('image');
-
-        // $post->update();
-
-        $post->title = $request->input('title');
-        $post->save();
+        $post->update($request->all());
 
         $response = [
             'message' => 'User records updated',
@@ -80,7 +77,17 @@ class PostController extends Controller
      }
  
      // delete
-     public function delete () {
- 
+     public function destroy ($id) {
+        // find post
+        $post = Post::find($id);
+
+        $post->delete();
+
+        $response = [
+            'message' => 'deleted successfully',
+            'posts' => $post
+        ];
+
+        return response($response,200);
      }
 }
