@@ -9,15 +9,33 @@ class YoutubeFilesController extends Controller
 {
     //
 
-     // show all
+     // show all youtube files
      public function index () {
         $youtube = YoutubeFiles::all();
 
         return $youtube;
      }
  
-     // create user
-     public function store () {
+     // create youtube file
+     public function store (Request  $request) {
+
+        //validate form inputs
+        $fields = $request->validate([
+            'title' => 'required|string',
+            'description' => 'required|string',
+            'file_link' => 'required|string'
+        ]);
+
+        $youtube_posts = YoutubeFiles::create($request->all());
+
+        $response = [
+            'message'=> 'Youtube post successfully created',
+            'youtube_post' => $youtube_posts
+        ];
+
+        return response($response,200);
+
+
  
      }
  
