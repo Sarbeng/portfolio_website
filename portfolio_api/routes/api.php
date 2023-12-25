@@ -74,3 +74,8 @@ Route::group(['middleware' => ['api'],'namespace' => 'App\Http\Controllers', 'pr
     Route::get('/individual_posts','PostController@individual_posts');
 });
 
+
+// youtube routes go here
+Route::group(['middleware' => ['api'],'namespace' => 'App\Http\Controllers', 'prefix' => 'videos'], function($router) {
+    Route::resource('youtube', YoutubeFilesController::class);
+});

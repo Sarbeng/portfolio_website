@@ -3,18 +3,21 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\YoutubeFiles;
 
 class YoutubeFilesController extends Controller
 {
     //
 
-     // show user
-     public function show () {
-        
+     // show all
+     public function index () {
+        $youtube = YoutubeFiles::all();
+
+        return $youtube;
      }
  
      // create user
-     public function create () {
+     public function store () {
  
      }
  
@@ -22,9 +25,14 @@ class YoutubeFilesController extends Controller
      public function update () {
  
      }
+
+     // create the user
+     public function create () {
+ 
+     }
  
      // delete
-     public function delete () {
+     public function destroy () {
  
      }
 }
