@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('file_name');
             $table->string('description')->nullable();
             $table->string('file_location');
-            $table->integer('youtube_id')->unsigned();
+            $table->integer('youtube_id')->unsigned()->nullable();
             $table->foreign('youtube_id')->references('id')->on('youtube_files');
         });
     }
