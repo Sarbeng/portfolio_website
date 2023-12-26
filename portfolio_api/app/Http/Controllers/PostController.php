@@ -18,8 +18,10 @@ class PostController extends Controller
      }
 
      //get individual posts
-     public function individual_posts () {
+     public function individual_posts ($id) {
+        $post = Post::find($id);
 
+        return $post;
      }
  
      // create user
