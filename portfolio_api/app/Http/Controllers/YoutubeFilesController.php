@@ -15,6 +15,14 @@ class YoutubeFilesController extends Controller
 
         return $youtube;
      }
+
+     // display individual file
+     public function show ($id) {
+        // get by id
+        $youtube = YoutubeFiles::findorFail($id);
+
+        return $youtube;
+     }
  
      // create youtube file
      public function store (Request  $request) {
