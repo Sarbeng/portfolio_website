@@ -40,7 +40,23 @@ class YoutubeFilesController extends Controller
      }
  
      // updating the user
-     public function update () {
+     public function update (Request $request, $id) {
+
+        $fields = $request->validate([
+            'title' => 'required|string'
+        ]);
+        // gettin youtube id
+        $youtube = YoutubeFiles::find($id);
+
+        //updating the youtube 
+        $youtube->update($request->all());
+
+        $response = [
+            'message' => 'Youtube file updated successfully',
+            'update' => $youtube
+        ];
+
+        return response ($response, 200);
  
      }
 
@@ -50,7 +66,19 @@ class YoutubeFilesController extends Controller
      }
  
      // delete
-     public function destroy () {
- 
+     public function destroy ($id) {
+        // finding file
+        $youtube = YoutubeFiles::findorFail($id);
+
+        // deleting file
+        $youtube->delete();
+
+        $response = [
+            'message' => 'deleted successfully',
+            'youtube file' => $youtube
+        ];
+
+        return response($response,200);
+
      }
 }

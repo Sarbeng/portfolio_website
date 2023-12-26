@@ -78,4 +78,5 @@ Route::group(['middleware' => ['api'],'namespace' => 'App\Http\Controllers', 'pr
 // youtube routes go here
 Route::group(['middleware' => ['api'],'namespace' => 'App\Http\Controllers', 'prefix' => 'videos'], function($router) {
     Route::resource('youtube', YoutubeFilesController::class);
+    Route::post('youtube/{id}','YoutubeFilesController@update');
 });
