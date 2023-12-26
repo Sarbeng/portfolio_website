@@ -80,3 +80,9 @@ Route::group(['middleware' => ['api'],'namespace' => 'App\Http\Controllers', 'pr
     Route::resource('youtube', YoutubeFilesController::class);
     Route::post('youtube/{id}','YoutubeFilesController@update');
 });
+
+// photoshop routes go here
+Route::group(['middleware' => ['api'],'namespace' => 'App\Http\Controllers', 'prefix' => 'files'], function($router) {
+    Route::resource('photoshop', PhotoshopFilesController::class);
+    Route::post('photoshop/{id}','PhotoshopFilesController@update');
+});
